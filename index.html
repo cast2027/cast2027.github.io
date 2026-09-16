@@ -1,1 +1,132 @@
+<!DOCTYPE html>
+<html>
 
+<head>
+  <meta charset="utf-8">
+  <meta name="description" content="CAST: Anchoring Critic-Guided Fine-Tuning of Generative Robot Policies">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>Anchoring Critic-Guided Fine-Tuning of Generative Robot Policies</title>
+
+  <!-- Bulma CSS -->
+  <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+
+  <style>
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+    }
+
+    .hero {
+      padding-top: 3rem;
+      padding-bottom: 1.5rem;
+    }
+
+    .publication-title {
+      font-size: 2.7rem;
+      font-weight: 700;
+      line-height: 1.2;
+    }
+
+    .publication-authors {
+      font-size: 1.25rem;
+      margin-top: 1.3rem;
+    }
+
+    .abstract-section {
+      max-width: 900px;
+      margin: auto;
+      padding: 2rem 1.5rem 4rem 1.5rem;
+    }
+
+    .abstract-text {
+      font-size: 1.1rem;
+      line-height: 1.65;
+      text-align: justify;
+    }
+
+    .section-title {
+      font-size: 2rem;
+      font-weight: 600;
+      margin-bottom: 1rem;
+    }
+
+    hr {
+      margin-bottom: 2rem;
+    }
+  </style>
+</head>
+
+
+<body>
+
+<!-- Title -->
+<section class="hero">
+  <div class="hero-body">
+    <div class="container has-text-centered">
+
+      <h1 class="publication-title">
+        Anchoring Critic-Guided Fine-Tuning of Generative Robot Policies
+      </h1>
+
+      <div class="publication-authors">
+        Anonymous Authors
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- Abstract -->
+<section class="abstract-section">
+
+  <h2 class="section-title">
+    Abstract
+  </h2>
+
+  <hr>
+
+  <div class="abstract-text">
+
+    <p>
+      Reinforcement learning can improve pretrained robot policies, but
+      imperfect critic guidance can also disrupt the useful behaviors they
+      have already learned. Even with a frozen base policy, repeated
+      critic-guided corrections can gradually override useful pretrained
+      behavior, making small updates alone insufficient to ensure its
+      preservation.
+    </p>
+
+    <br>
+
+    <p>
+      We present CAST (Constrained Action-Space Transport), a
+      likelihood-free method that learns residual corrections to a frozen
+      generative policy. CAST constructs action targets by combining critic
+      guidance with a soft pull toward the corresponding base actions and
+      capping each proposed correction. The residual then learns these
+      targets by regression. This design maintains a persistent reference
+      to pretrained behavior while leaving room for adaptation.
+    </p>
+
+    <br>
+
+    <p>
+      Experiments in simulated manipulation show improved task success and
+      fewer environment steps needed to reach a target success rate.
+      Real-robot experiments on OpenArm further show improved placement and
+      stacking success over the pretrained policies. Ablations show that
+      restoration can preserve task success where clipping alone fails,
+      supporting the importance of a persistent reference during refinement.
+      Broader evaluations reveal that the benefits of anchoring vary across
+      tasks, highlighting the need to balance preserving useful behavior
+      with allowing the changes required for improvement.
+    </p>
+
+  </div>
+
+</section>
+
+</body>
+</html>
