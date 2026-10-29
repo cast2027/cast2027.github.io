@@ -29,6 +29,18 @@
       wantsPlayback = true;
       sync();
     });
+    player.querySelector('[data-expand]')?.addEventListener('click', async () => {
+      video.controls = true;
+      try {
+        if (video.requestFullscreen) await video.requestFullscreen();
+        else if (video.webkitEnterFullscreen) video.webkitEnterFullscreen();
+        else window.open(video.currentSrc, '_blank', 'noopener');
+      } catch (_) { video.controls = false; }
+    });
+    video.addEventListener('fullscreenchange', () => {
+      video.controls = document.fullscreenElement === video;
+    });
+    video.addEventListener('webkitendfullscreen', () => { video.controls = false; });
     stages.forEach((button) => button.addEventListener('click', () => {
       wantsPlayback = false;
       video.pause();
