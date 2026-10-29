@@ -10,6 +10,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Libre+Baskerville:wght@400;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
+  <script src="animation.js" defer></script>
 </head>
 <body>
   <a class="skip" href="#main">Skip to content</a>
@@ -28,7 +29,11 @@
         <p class="anonymous">Anonymous authors</p>
         <div class="hero-actions"><a class="button primary" href="#film">▶&nbsp; Watch the overview</a><a class="button ghost" href="#results">Explore the results <span aria-hidden="true">↓</span></a></div>
       </div>
-      <div class="hero-visual"><img src="assets/figures/method_update.png" alt="CAST update: pair current and base actions, propose a critic correction, restore toward the base, and fit a constrained target" fetchpriority="high"><div class="visual-caption"><span>01 / The CAST update</span><span>Frozen base + learned residual</span></div></div>
+      <div class="hero-visual transport-player" data-transport>
+        <video class="transport-video" autoplay muted loop playsinline controls preload="metadata" poster="assets/animations/cast_distribution_poster.png" aria-label="CAST animation: a policy distribution fits fixed action targets over four learning rounds" aria-describedby="hero-animation-caption"><source src="assets/animations/cast_distribution.mp4" type="video/mp4"><img src="assets/animations/cast_distribution.gif" alt="Animated CAST distribution fitting"></video>
+        <div class="transport-controls" hidden><button type="button" data-toggle aria-label="Pause CAST animation">Pause</button><a href="#method">Explore the update ↗</a></div>
+        <p class="visual-caption" id="hero-animation-caption"><span>A distribution learns, one target at a time.</span><span>Illustrative toy actor</span></p>
+      </div>
     </div><div class="hero-bottom wrap"><span>Constrained Action-Space Transport</span><span>Likelihood-free · Frozen generative base · Residual learning</span></div></section>
 
     <section class="section film-section" id="film"><div class="wrap"><div class="section-heading"><div><p class="eyebrow">The research in motion</p><h2>A short film about CAST</h2></div><p>See why small critic steps can drift, and how a persistent reference helps a policy improve.</p></div>
@@ -43,7 +48,18 @@
     </div></section>
 
     <section class="section method-section" id="method"><div class="wrap"><div class="section-heading"><div><p class="eyebrow">How it works</p><h2>From critic guidance to a teachable target</h2></div><p>CAST changes the actor update while keeping the frozen generator and off-policy critic framework.</p></div>
-      <div class="method-grid"><div class="method-figure"><img src="assets/figures/method_update.png" alt="Four stages of CAST: sample paired actions, propose correction, restore and clip, fit residual" loading="lazy"></div><div class="method-steps"><div><b>1</b><p><strong>Sample.</strong> Draw noise and generate a base action and current residual action from the same sample.</p></div><div><b>2</b><p><strong>Propose.</strong> Use the critic's action gradient to suggest a higher-value action.</p></div><div><b>3</b><p><strong>Constrain.</strong> Restore toward the base action, with a stronger pull beyond a soft radius, and cap the total requested change.</p></div><div><b>4</b><p><strong>Fit.</strong> Train the residual by regression to that fixed action target. Recompute targets as training continues.</p></div></div></div>
+      <div class="distribution-feature transport-player" data-transport>
+        <div class="animation-heading"><div><span class="eyebrow light">Watch the distribution fit</span><h3>Fresh targets. A changing policy. A fixed base.</h3></div><span class="animation-badge">4 rounds · 27 seconds</span></div>
+        <video class="transport-video" autoplay muted loop playsinline controls preload="metadata" poster="assets/animations/cast_distribution_poster.png" aria-label="Animated CAST target construction and residual regression, with action particles, density curves, and fitting error" aria-describedby="distribution-caption"><source src="assets/animations/cast_distribution.mp4" type="video/mp4"><img src="assets/animations/cast_distribution.gif" alt="CAST distribution animation"></video>
+        <div class="transport-controls" hidden><div><button type="button" data-toggle aria-label="Pause CAST animation">Pause</button><button type="button" data-replay>Replay ↻</button></div><div class="animation-downloads"><a href="assets/animations/cast_distribution.mp4" target="_blank" rel="noopener">View full size ↗</a><a href="assets/animations/cast_distribution.gif" download>Download GIF ↓</a></div></div>
+        <div class="distribution-steps" aria-label="Inspect an animation stage">
+          <button type="button" data-stage="0" data-seek="13.5"><b>01 <span>Pair</span></b><span>Keep the same-noise base action as a fixed reference.</span></button>
+          <button type="button" data-stage="1" data-seek="14.8"><b>02 <span>Propose</span></b><span>The critic suggests how to move each current action.</span></button>
+          <button type="button" data-stage="2" data-seek="16.4"><b>03 <span>Constrain</span></b><span>Restore toward the base and cap the requested change.</span></button>
+          <button type="button" data-stage="3" data-seek="18.4"><b>04 <span>Fit</span></b><span>Hold targets fixed while the residual learns to match them.</span></button>
+        </div>
+      </div>
+      <p class="media-note" id="distribution-caption">The particles and density curves come from an actual toy residual actor trained by gradient descent. The blue base stays fixed; the mint policy fits the white target markers. Select a stage to pause and inspect it. This synthetic, fixed-critic illustration explains the update; it is not a robot experiment.</p>
       <div class="formula">current action <span>+</span> critic proposal <span>+</span> base restoration <span>→</span> constrained target <span>→</span> residual regression</div>
       <h3 class="subheading">See the update, step by step</h3><div class="animation-grid">
         <article class="video-card"><video controls preload="none" playsinline poster="assets/posters/A01_accumulated_drift.png"><source src="assets/videos/accumulated_drift.mp4" type="video/mp4"></video><div><span>01 · Motivation</span><h4>Small steps accumulate</h4></div></article>
